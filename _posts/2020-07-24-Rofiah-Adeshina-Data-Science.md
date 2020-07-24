@@ -210,7 +210,7 @@ To determine each influencer's reach, I made use of the of a formula: Reach Scor
 reach = pd.concat([total_followers,gov_following], axis=1)
 reach['reach_score']= reach["Number of followers"] - reach["Number of following"]
 ```
-
+![image](https://user-images.githubusercontent.com/65109526/88411765-68997300-cdd0-11ea-97dc-46ecce0b5ce0.png "Government Official with Highest Reach")
 
 
 #### Popularity
@@ -221,8 +221,32 @@ popularity["Popularity_score"] = popularity["No of retweets"]+popularity["Number
 ```
 ![image](https://user-images.githubusercontent.com/65109526/88410966-055b1100-cdcf-11ea-995f-4bdaadc36cee.png "Most Popular Government Officials")
 
+The same can be done for the top 100 Influencers to determine which one of them is the most popular and has the highest reach.
  
-
+#### Hashtags
+Hashtags are used to set trends on twitter. To determine the major hashtags that these officials and top influencers use, I made use of the code below:
+```
+hashtags=[]
+if len(fl_handles) > 0:
+    for handle in handles:
+        value_list = {}
+        *print("Getting hashtags for " + handle)
+        * this helps avoid Tweepy errors like suspended users or user not found errors
+        try:
+            for status in tweepy.Cursor(api.user_timeline, id=handle).items():
+                if hasattr(status, "entities"):
+                    entities = status.entities
+                    if 'hashtags' in entities:
+                        for ent in entities['hashtags']:
+                            if ent is not None:
+                                if "text" in ent:
+                                    hashtag = ent["text"]
+                                    if hashtag is not None:
+                                        hashtags.append(hashtag)
+        except tweepy.TweepError as e:
+            continue
+```
+Getting the hashtags and count for each hashtag, I was able to derive this plot
  
  
 
