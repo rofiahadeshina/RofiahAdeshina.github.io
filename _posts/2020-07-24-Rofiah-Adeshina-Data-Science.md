@@ -5,7 +5,7 @@ date: 2020-07-23
 ---
 ## Introduction
 Social media campaigns as other kinds are driven towards improving sales of product.
-Trends are set each day on social media networks mostly by influencial individuals. This blog post focuses on Twitter as a means to identify these individuals making use of their popularity, reach and relevance scores. It also highlights the major hashtags used by these individuals.
+Trends are set each day on social media networks mostly by influencial individuals. This blog post focuses on Twitter as a means to identify these individuals making use of their popularity and reach scores. It also highlights the major hashtags used by these individuals.
 
 ## Methodology
 #### Web Scrapping
@@ -158,12 +158,12 @@ auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 ```
-For this analysis, the data minned are: the followers_count, number of likes, retweet_count, friends_count, mentions and hashtags.
+For this analysis, the data minned are: the followers_count, number of likes, retweet_count, friends_count and hashtags.
 ```
 *getting followers for influencers*
 *Calling the get_user function with our parameters*
 followers = []
-for i in fl_handles:
+for i in handles:
     try:
         results = api.get_user(id=i)
     except tweepy.TweepError as e:
@@ -172,7 +172,7 @@ for i in fl_handles:
 
 *getting no of likes for influencers*
 likes = []
-for i in fl_handles:
+for i in handles:
     try:
         results = api.get_user(id=i)
     except tweepy.TweepError as e:
@@ -181,7 +181,7 @@ for i in fl_handles:
 
 *getting no of following for influencers*
 following = []
-for i in fl_handles:
+for i in handles:
     try:
         results = api.get_user(id=i)
     except tweepy.TweepError as e:
@@ -191,7 +191,7 @@ for i in fl_handles:
 
 *getting retweets*
 no_of_retweets = []
-for id in fl_handles:
+for id in handles:
     try:
         tweets = tweepy.Cursor(api.user_timeline, id=i).items()
         for tweet in tweets:
