@@ -3,18 +3,18 @@ layout: post
 title: "Major Social Media Influencers Including Government Officials"
 date: 2020-07-23
 ---
-### Introduction
+## Introduction
 Social media campaigns as other kinds are driven towards improving sales of product.
 Trends are set each day on social media networks mostly by influencial individuals. This blog post focuses on Twitter as a means to identify these individuals making use of their popularity, reach and relevance scores. It also highlights the major hashtags used by these individuals.
 
-### Methodology
+## Methodology
 #### Web Scrapping
 
 Web scrapping is a process of data extraction. It is extracting data from HTML using the Beautiful Soup, a third party library for parsing HTML and XML documents. For this analysis, I extracted data from the following websites: [Top African Influencers](https://africafreak.com/100-most-influential-twitter-users-in-africa) and [African Top Government Influencers](https://www.atlanticcouncil.org/blogs/africasource/african-leaders-respond-to-coronavirus-on-twitter/#east-africa). 
 
 I made use of this code to scrap the websites:
 ```
-#data extraction functions
+*#data extraction functions*
 def simple_get(url):
     """
     Attempts to get the content at `url` by making an HTTP GET request.
@@ -102,15 +102,11 @@ def get_elements(url, tag='',search={}, fname=None):
     
 if get_ipython().__class__.__name__ == '__main__':
     fire(get_tag_elements)
-    
-#pulling data from the site into a list
+ 
+```
+Pulling data from the top 100 influencers site into a list
+```
 res = get_elements('https://africafreak.com/100-most-influential-twitter-users-in-africa', tag='h2')
-
-#removing irrelevant elements
-for i in res[100:]:
-    res.remove(i)
-
-#getting handles and names
 names_infl = []
 handle_infl = []
 for r in res:
@@ -135,22 +131,17 @@ for r in re_gov:
     handle =  split_data[1].rsplit(')',maxsplit=1)[0]
     names.append(name)
     handles.append(handle)
-
-nam_handle = f'{name}:{handle}'
 ```
 
-### Twitter Mining
-After compiling the list of handles, the next step is to mine their data from twitter. Here I will be making use of the tweepy library. To know more about the tweepy library, chech this documentation [Tweepy API documentation](http://docs.tweepy.org/en/v3.5.0/api.html). For easy analysis, I combined the lists (ie handles and handle_infl) into one fl_handle.
+## Twitter Mining
+After compiling the list of handles, the next step is to mine their data from twitter. Here, I will be making use of the tweepy library. Check this documentation [Tweepy API documentation](http://docs.tweepy.org/en/v3.5.0/api.html) to get more information on the use of tweepy. For easy analysis.
 
-To mine twitter data, these libraries are essential. I also included a line of code that help to install the tweepy library
-```#!pip install tweepy
-
+In mine twitter data, these libraries are essential
+```
 import tweepy
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
-
-
 ```
 These credentials ("secret keys") are from my twitter developer's account. Therefore a twitter developer account is needed to get these credentials  
 ```
@@ -160,7 +151,7 @@ consumer_secret = "secret key"
 access_token = "secret key"
 access_token_secret = "secret key"
 ```
-Set up an API to access information about the Twitter handles I collected from those websites
+Setting up an API to access information about the Twitter handles I collected from those websites
 
 ```
 auth = OAuthHandler(consumer_key, consumer_secret)
@@ -177,8 +168,7 @@ for i in fl_handles:
     except tweepy.TweepError as e:
         continue 
     followers.append(results.followers_count)
-```
-```
+
 # getting no of likes for influencers
 likes = []
 for i in fl_handles:
@@ -187,9 +177,7 @@ for i in fl_handles:
     except tweepy.TweepError as e:
         continue
     likes.append(results.favourites_count)
-```
 
-```
 # getting no of following for influencers
 following = []
 for i in fl_handles:
@@ -208,30 +196,10 @@ for id in fl_handles:
         for tweet in tweets:
             no_of_retweets.append(tweet.retweet_count)
     except tweepy.TweepError as e:
-        continue
-        
-#mention for gov influencers
-count = []
-for x in range(0, len(fl_handles)):
-    name = fl_handles[x]
-    mentions_count = []
-    try:
-       for status in tweepy.Cursor(api.user_timeline, id=name).items():
-         entities = status.entities
-         if "user_mentions" in entities:
-            for ent in entities["user_mentions"]:
-              if ent is not None:
-                if "screen_name" in ent:
-                  name = ent["screen_name"]
-                  if name is not None:
-                    mentions_count.append(name)
-    except tweepy.TweepError as e:
-        continue
-    count.append(len(mentions_count))        
-        
+        continue               
 ```
  
-### Results
+### Data Visualization
 Having the data from twitter, I determine the popularity and reach of each influencer.
 To determine each influencer's reach, I made use of the of a formula: Reach Score = Number of followers - Number of following. The results are then sorted to determine the influencers with the highest reach. The same logic is used to determine the popularity however, popularity score = 
 
@@ -240,8 +208,8 @@ To determine each influencer's reach, I made use of the of a formula: Reach Scor
 #Reach Score = followers - following
 reach = pd.concat([total_followers,gov_following], axis=1)
 reach['reach_score']= reach["Number of followers"] - reach["Number of following"]
-
 ```
+
 
 #### Popularity
 ```
