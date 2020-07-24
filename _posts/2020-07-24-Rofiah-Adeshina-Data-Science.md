@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Major Social Media Influencers Including Government Officials"
+title: "Twitter Analysis of Social Media Influencers Including Government Officials"
 date: 2020-07-23
 ---
 ## Introduction
@@ -212,12 +212,15 @@ reach['reach_score']= reach["Number of followers"] - reach["Number of following"
 ```
 
 
+
 #### Popularity
 ```
 *popularity reach = retweets + likes*
 popularity = pd.concat([gov_retweets,total_like], axis=1)
 popularity["Popularity_score"] = popularity["No of retweets"]+popularity["Number of likes"]
 ```
+![image](https://user-images.githubusercontent.com/65109526/88410966-055b1100-cdcf-11ea-995f-4bdaadc36cee.png "Most Popular Government Officials")
+
  
 
  
