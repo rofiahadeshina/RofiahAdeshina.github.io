@@ -145,7 +145,7 @@ from tweepy import Stream
 ```
 These credentials ("secret keys") are from my twitter developer's account. Therefore a twitter developer account is needed to get these credentials  
 ```
-#initialize custom twitter keys
+*initialize custom twitter keys*
 consumer_key = "secret key"
 consumer_secret = "secret key"
 access_token = "secret key"
@@ -159,8 +159,9 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 ```
 For this analysis, the data minned are: the followers_count, number of likes, retweet_count, friends_count, mentions and hashtags.
-```# getting followers for influencers
-# Calling the get_user function with our parameters
+```
+*getting followers for influencers*
+*Calling the get_user function with our parameters*
 followers = []
 for i in fl_handles:
     try:
@@ -169,7 +170,7 @@ for i in fl_handles:
         continue 
     followers.append(results.followers_count)
 
-# getting no of likes for influencers
+*getting no of likes for influencers*
 likes = []
 for i in fl_handles:
     try:
@@ -178,7 +179,7 @@ for i in fl_handles:
         continue
     likes.append(results.favourites_count)
 
-# getting no of following for influencers
+*getting no of following for influencers*
 following = []
 for i in fl_handles:
     try:
@@ -188,7 +189,7 @@ for i in fl_handles:
     following.append(results.friends_count)
 
 
-#getting retweets
+*getting retweets*
 no_of_retweets = []
 for id in fl_handles:
     try:
@@ -205,7 +206,7 @@ To determine each influencer's reach, I made use of the of a formula: Reach Scor
 
 #### Reach
 ```
-#Reach Score = followers - following
+*Reach Score = followers - following*
 reach = pd.concat([total_followers,gov_following], axis=1)
 reach['reach_score']= reach["Number of followers"] - reach["Number of following"]
 ```
@@ -213,7 +214,7 @@ reach['reach_score']= reach["Number of followers"] - reach["Number of following"
 
 #### Popularity
 ```
-#popularity reach = retweets + likes
+*popularity reach = retweets + likes*
 popularity = pd.concat([gov_retweets,total_like], axis=1)
 popularity["Popularity_score"] = popularity["No of retweets"]+popularity["Number of likes"]
 ```
