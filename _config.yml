@@ -1,2 +1,5 @@
 name: Rofiah Adeshina, Data Science
 markdown: kramdown
+
+permalink: /blog/:year/:month/:day/:title
+
