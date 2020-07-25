@@ -250,4 +250,4 @@ Getting the hashtags and count for each hashtag, I was able to derive this plot,
 ![image](https://user-images.githubusercontent.com/65109526/88413153-9a133e00-cdd2-11ea-8e99-fb66ae9c1100.png "hashtags")
 
 ### Conclusion
-The popularity and reach of an individual are major factors that determine the influence they have on social media. This information is useful to companies as it can help them push their brands on social mediaa and increase sales by partnering with these top influencers. 
+The popularity and reach of an individual are major factors that determine the influence they have on social media. This information is useful to companies as it can help them push their brands on social media and increase sales by partnering with these top influencers. 
